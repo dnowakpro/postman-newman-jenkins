@@ -23,7 +23,7 @@
 							"const jsonData = pm.response.json();\r",
 							"// Assertion du libellé du département :\r",
 							"pm.test(\"Le libellé du département est Nord\", function(){\r",
-							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"PARIS\")\r",
+							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"NORD\")\r",
 							"});\r",
 							"// Assertion du libellé de la localisation précise :\r",
 							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
