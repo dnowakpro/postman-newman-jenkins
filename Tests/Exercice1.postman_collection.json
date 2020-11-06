@@ -24,7 +24,7 @@
 							"});\r",
 							"// Assertion du libellé de la localisation précise :\r",
 							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
-							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIC\")\r",
+							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
 							"});"
 						],
 						"type": "text/javascript"
