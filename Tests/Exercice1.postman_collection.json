@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "393f312a-9e7d-426c-97a7-919f49b32912",
+		"name": "Exercice 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Requête 1a",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e081ab7a-e4da-4d7d-97cf-09e94d619c9f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"//déclaration de la variable jsonData :\r",
+							"const jsonData = pm.response.json();\r",
+							"// Assertion du libellé du département :\r",
+							"pm.test(\"Le libellé du département est Nord\", function(){\r",
+							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"PARIS\")\r",
+							"});\r",
+							"// Assertion du libellé de la localisation précise :\r",
+							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
+							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=75&nom_cours_eau=Seine",
+					"protocol": "https",
+					"host": [
+						"hubeau",
+						"eaufrance",
+						"fr"
+					],
+					"path": [
+						"api",
+						"v1",
+						"qualite_rivieres",
+						"station_pc"
+					],
+					"query": [
+						{
+							"key": "code_departement",
+							"value": "75"
+						},
+						{
+							"key": "nom_cours_eau",
+							"value": "Seine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Requête 1b",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46f5ca24-2c98-4c0f-a14f-6347c5e35137",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"//déclaration de la variable jsonData :\r",
+							"const jsonData = pm.response.json();\r",
+							"// Assertion du libellé du département :\r",
+							"pm.test(\"Le libellé du département est Nord\", function(){\r",
+							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"NORD\")\r",
+							"});\r",
+							"// Assertion du libellé de la localisation précise :\r",
+							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
+							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DU CD 125b\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=59,62,80&nom_cours_eau=Canal de la Deule",
+					"protocol": "https",
+					"host": [
+						"hubeau",
+						"eaufrance",
+						"fr"
+					],
+					"path": [
+						"api",
+						"v1",
+						"qualite_rivieres",
+						"station_pc"
+					],
+					"query": [
+						{
+							"key": "code_departement",
+							"value": "59,62,80"
+						},
+						{
+							"key": "nom_cours_eau",
+							"value": "Canal de la Deule"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
