@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Project to store Postman tests",
   "scripts": {
-    "api-tests-production": "newman run Tests/Exercice1.postman_collection.json --reporters cli,json --reporter-json-export newman.json"
+    "api-tests-production": "newman run Tests/Exercice1.postman_collection.json --reporters cli,json --reporter-json-export newman/newman.json"
   },
   "author": "David Nowak",
   "dependencies": {
