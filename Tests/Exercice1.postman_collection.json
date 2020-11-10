@@ -25,6 +25,10 @@
 							"// Assertion du libellé de la localisation précise :\r",
 							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
 							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
+							"});\r",
+							"// Assertion du libellé du nom du bassin :\r",
+							"pm.test(\"Le libellé du bassin\", function(){\r",
+							"    pm.expect(jsonData.data[0].nom_bassin).to.be.eq(\"La Seine et les cours d'eau côtiers normands\")\r",
 							"});"
 						],
 						"type": "text/javascript"
