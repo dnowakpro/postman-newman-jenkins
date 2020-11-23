@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Project to store Postman test",
   "scripts": {
-    "api-tests-production": "newman run Tests/Exercice1.postman_collection.json -r json --reporters json"
+    "api-tests-production": "newman run Tests/Exercice1.postman_collection.json -r html --reporters html"
   },
   "author": "David Nowak",
   "dependencies": {
     "newman": "^5.2.1"
   }
 }
+html
