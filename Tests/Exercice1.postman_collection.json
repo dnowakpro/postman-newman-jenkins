@@ -39,9 +39,13 @@
 							"pm.test(\"Le libellé du bassin\", function(){\r",
 							"    pm.expect(jsonData.data[0].code_eu_bassin).to.be.eq(\"FRH\")\r",
 							"});\r",
-							"// Assertion du libellé du code_eu_bassin :\r",
+							"// Assertion du libellé région :\r",
 							"pm.test(\"Le libellé de la région\", function(){\r",
 							"    pm.expect(jsonData.data[0].libelle_region).to.be.eq(\"ILE-DE-FRANCE\")\r",
+							"});\r",
+							"// Assertion du libellé du code masse d'eau :\r",
+							"pm.test(\"Le code masse d'eau\", function(){\r",
+							"    pm.expect(jsonData.data[0].code_masse_deau).to.be.eq(\"HR155A\")\r",
 							"});"
 						],
 						"type": "text/javascript"
