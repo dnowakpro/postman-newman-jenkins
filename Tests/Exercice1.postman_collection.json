@@ -46,6 +46,10 @@
 							"// Assertion du libellé du code masse d'eau :\r",
 							"pm.test(\"Le code masse d'eau\", function(){\r",
 							"    pm.expect(jsonData.data[0].code_masse_deau).to.be.eq(\"HR155A\")\r",
+							"});\r",
+							"// Assertion du libellé du code bassin :\r",
+							"pm.test(\"Le code bassin\", function(){\r",
+							"    pm.expect(jsonData.data[0].code_bassin).to.be.eq(\"H\")\r",
 							"});"
 						],
 						"type": "text/javascript"
