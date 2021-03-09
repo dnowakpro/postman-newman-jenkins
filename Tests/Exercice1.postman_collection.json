@@ -11,7 +11,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e081ab7a-e4da-4d7d-97cf-09e94d619c9f",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -30,6 +29,10 @@
 							"// Assertion du libellé de la localisation précise :\r",
 							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
 							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
+							"});\r",
+							"// Assertion de la date de création :\r",
+							"pm.test(\"Vérification Date de création\", function(){\r",
+							"    pm.expect(jsonData.data[0].date_creation).to.be.eq(\"1971-01-01\")\r",
 							"});\r",
 							"// Assertion du libellé du nom du bassin :\r",
 							"pm.test(\"Le libellé du bassin\", function(){\r",
@@ -50,6 +53,10 @@
 							"// Assertion du libellé du code bassin :\r",
 							"pm.test(\"Le code bassin\", function(){\r",
 							"    pm.expect(jsonData.data[0].code_bassin).to.be.eq(\"H\")\r",
+							"});\r",
+							"// Assertion du libellé du code projection :\r",
+							"pm.test(\"Le code projection\", function(){\r",
+							"    pm.expect(jsonData.data[0].code_projection).to.be.eq(\"26\")\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -58,7 +65,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=75&nom_cours_eau=Seine",
 					"protocol": "https",
@@ -93,7 +106,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "46f5ca24-2c98-4c0f-a14f-6347c5e35137",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -144,6 +156,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
