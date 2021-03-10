@@ -57,6 +57,10 @@
 							"// Assertion du libellé du code projection :\r",
 							"pm.test(\"Le code projection\", function(){\r",
 							"    pm.expect(jsonData.data[0].code_projection).to.be.eq(\"26\")\r",
+							"});\r",
+							"// Assertion du libellé du coordonnee_y :\r",
+							"pm.test(\"coordonnee_y\", function(){\r",
+							"    pm.expect(jsonData.data[0].coordonnee_y).to.be.eq(6859348.0)\r",
 							"});"
 						],
 						"type": "text/javascript"
