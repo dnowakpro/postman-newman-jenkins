@@ -22,13 +22,21 @@
 							"\r",
 							"//déclaration de la variable jsonData :\r",
 							"const jsonData = pm.response.json();\r",
-							"// Assertion du libellé du département :\r",
-							"pm.test(\"Le libellé du département est PARIS\", function(){\r",
-							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"PARIS\")\r",
+							"// Assertion du nombre de blocs \"data\" :\r",
+							"pm.test(\"Le nombre de blocs data est de 3\", function(){\r",
+							"    pm.expect(jsonData.count).to.be.eq(3)\r",
 							"});\r",
-							"// Assertion du libellé de la localisation précise :\r",
-							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
+							"// Assertion de la première localisation précise :\r",
+							"pm.test(\"Check Première Localisation précise\", function(){\r",
 							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
+							"});\r",
+							"// Assertion de la seconde localisation précise :\r",
+							"pm.test(\"Check Seconde Localisation précise\", function(){\r",
+							"    pm.expect(jsonData.data[1].localisation_precise).to.be.eq(\"PONT DE SOLFERINO\")\r",
+							"});\r",
+							"// Assertion de la troisième localisation précise :\r",
+							"pm.test(\"Check Troisième Localisation précise\", function(){\r",
+							"    pm.expect(jsonData.data[2].localisation_precise).to.be.eq(\"PONT DU GARIGLIANO\")\r",
 							"});\r",
 							"// Assertion de la date de création :\r",
 							"pm.test(\"Vérification Date de création\", function(){\r",
@@ -77,7 +85,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=75&nom_cours_eau=Seine",
+					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?nom_cours_eau=Seine&code_departement=75",
 					"protocol": "https",
 					"host": [
 						"hubeau",
@@ -92,12 +100,12 @@
 					],
 					"query": [
 						{
-							"key": "code_departement",
-							"value": "75"
-						},
-						{
 							"key": "nom_cours_eau",
 							"value": "Seine"
+						},
+						{
+							"key": "code_departement",
+							"value": "75"
 						}
 					]
 				}
