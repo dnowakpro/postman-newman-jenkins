@@ -16,8 +16,6 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"\r",
-							"\r",
 							"//pm.test(\"Response time is less than 2000ms\", function () {\r",
 							"//    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
 							"//});\r",
@@ -83,6 +81,10 @@
 							"// Assertion du libellé du coordonnee_y :\r",
 							"pm.test(\"coordonnee_y\", function(){\r",
 							"    pm.expect(jsonData.data[0].coordonnee_y).to.be.eq(6859348.0)\r",
+							"});\r",
+							"// Assertion du libellé du coordonnee_x :\r",
+							"pm.test(\"coordonnee_x\", function(){\r",
+							"    pm.expect(jsonData.data[0].coordonnee_x).to.be.eq(654601.0)\r",
 							"});"
 						],
 						"type": "text/javascript"
