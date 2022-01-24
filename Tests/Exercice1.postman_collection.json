@@ -42,6 +42,18 @@
 							"pm.test(\"Check Troisième Localisation précise\", function(){\r",
 							"    pm.expect(jsonData.data[2].localisation_precise).to.be.eq(\"PONT DU GARIGLIANO\")\r",
 							"});\r",
+							"// Assertion du libellé de la première station :\r",
+							"pm.test(\"Check Libellé station 1\", function(){\r",
+							"    pm.expect(jsonData.data[0].libelle_station).to.be.eq(\"LA SEINE A PARIS-12E--ARRONDISSEMENT 1\")\r",
+							"});\r",
+							"//  Assertion du libellé de la seconde station :\r",
+							"pm.test(\"Check Libellé station 2\", function(){\r",
+							"    pm.expect(jsonData.data[1].libelle_station).to.be.eq(\"LA SEINE A PARIS--7E--ARRONDISSEMENT 1\")\r",
+							"});\r",
+							"//  Assertion du libellé de la troisième station :\r",
+							"pm.test(\"Check Libellé station 3\", function(){\r",
+							"    pm.expect(jsonData.data[2].libelle_station).to.be.eq(\"LA SEINE A PARIS-16E--ARRONDISSEMENT 2\")\r",
+							"});\r",
 							"// Assertion de la date de création :\r",
 							"pm.test(\"Vérification Date de création\", function(){\r",
 							"    pm.expect(jsonData.data[0].date_creation).to.be.eq(\"1971-01-01\")\r",
@@ -89,6 +101,15 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -132,21 +153,51 @@
 			"name": "Requête 1b",
 			"event": [
 				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Création d'une variable globale pour le code département :",
+							"pm.sendRequest({",
+							"    url: \"https://\" + pm.environment.get(\"url\") + \"/api/v1/qualite_rivieres/station_pc?nom_cours_eau=\" + pm.variables.get(\"nom_cours_eau\"),",
+							"    method: \"GET\",",
+							"    header: {},",
+							"    body: {}",
+							"},",
+							"function (err,response) {",
+							"    var jsonData = response.json();",
+							"    // Déclaration du tableau, initialisé à vide :",
+							"    var codes_departement = [];",
+							"    // Alimentation du tableau, avec les 2 premiers codes départements présents dans les 2 premières itérations :",
+							"    codes_departement.push(jsonData.data[0].code_departement);",
+							"    codes_departement.push(jsonData.data[1].code_departement);",
+							"    pm.globals.set(\"code_departement_init\",codes_departement);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"//déclaration de la variable jsonData :\r",
-							"const jsonData = pm.response.json();\r",
-							"// Assertion du libellé du département :\r",
-							"pm.test(\"Le libellé du département est Nord\", function(){\r",
-							"    pm.expect(jsonData.data[0].libelle_departement).to.be.eq(\"NORD\")\r",
-							"});\r",
-							"// Assertion du libellé de la localisation précise :\r",
-							"pm.test(\"Le libellé de la localisation précise\", function(){\r",
-							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DU CD 125b\")\r",
+							"",
+							"pm.test(\"Test du code retour 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"La réponse est correcte pour continuer les tests\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"//déclaration de la variable jsonData :",
+							"const jsonData = pm.response.json();",
+							"// Assertion du département :",
+							"pm.test(\"Le département remonté est bien présent dans le csv : \" + pm.globals.get(\"code_departement_init\"), function(){",
+							"    pm.expect(jsonData.data[0].code_departement).to.be.oneOf(pm.globals.get(\"code_departement_init\"));",
+							"});",
+							"/* Assertion du nom du cours d'eau : on vérifie que dans le json obtenu, le département présent est bien parmi ceux présents ",
+							" dans le tableau. */",
+							"pm.test(\"Le cours d'eau est \" + pm.variables.get(\"nom_cours_eau\"), function(){",
+							"    pm.expect(jsonData.data[0].nom_cours_eau).to.be.eq(pm.variables.get(\"nom_cours_eau\"));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -157,7 +208,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=59,62,80&nom_cours_eau=Canal de la Deule",
+					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?code_departement=75&nom_cours_eau=Seine",
 					"protocol": "https",
 					"host": [
 						"hubeau",
@@ -173,11 +224,11 @@
 					"query": [
 						{
 							"key": "code_departement",
-							"value": "59,62,80"
+							"value": "75"
 						},
 						{
 							"key": "nom_cours_eau",
-							"value": "Canal de la Deule"
+							"value": "Seine"
 						}
 					]
 				}
