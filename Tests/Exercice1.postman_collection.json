@@ -12,23 +12,21 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Vérification du code retour http\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"//pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"//    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
-							"//});\r",
-							"\r",
 							"//déclaration de la variable jsonData :\r",
 							"const jsonData = pm.response.json();\r",
+							"\r",
 							"// Assertion du nombre de blocs \"data\" :\r",
 							"pm.test(\"Le nombre de blocs data est de 3\", function(){\r",
 							"    pm.expect(jsonData.count).to.be.eq(3)\r",
 							"});\r",
 							"// Assertion de la version de l'API :\r",
+							"console.log(pm.collectionVariables.get(\"Version\"));\r",
 							"pm.test(\"Contrôle version API\", function(){\r",
-							"    pm.expect(jsonData.api_version).to.be.eq(\"1.1.0\")\r",
+							"    pm.expect(jsonData.api_version).to.be.eq(pm.collectionVariables.get(\"Version\"))\r",
 							"});\r",
 							"// Assertion de la première coordonnée x :\r",
 							"pm.test(\"Check Première coordonnee_x\", function(){\r",
@@ -37,6 +35,9 @@
 							"// Assertion de la première localisation précise :\r",
 							"pm.test(\"Check Première Localisation précise\", function(){\r",
 							"    pm.expect(jsonData.data[0].localisation_precise).to.be.eq(\"PONT DE TOLBIAC\")\r",
+							"});\r",
+							"pm.test(\"Vérif String Tolbiac\", function () {\r",
+							"    pm.expect(jsonData.data[0].localisation_precise).to.include(\"TOLBIAC\");\r",
 							"});\r",
 							"// Assertion de la seconde localisation précise :\r",
 							"pm.test(\"Check Seconde Localisation précise\", function(){\r",
@@ -126,16 +127,14 @@
 					}
 				],
 				"url": {
-					"raw": "https://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?nom_cours_eau=Seine&code_departement=75",
+					"raw": "https://{{url}}/api/{{api_version}}/qualite_rivieres/station_pc?nom_cours_eau=Seine&code_departement=75",
 					"protocol": "https",
 					"host": [
-						"hubeau",
-						"eaufrance",
-						"fr"
+						"{{url}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"{{api_version}}",
 						"qualite_rivieres",
 						"station_pc"
 					],
@@ -238,6 +237,33 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Version",
+			"value": "1.1.0",
+			"type": "string"
 		}
 	]
 }
